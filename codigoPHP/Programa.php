@@ -31,16 +31,16 @@ if (isset($_REQUEST['detalle'])) {
 $bienvenida = "Bienvenido, {$_SESSION['usuarioDAW207LoginLogOffTema5']}.<br>";
 $numConexiones = "";
 //Controlo que sea su primera vez conectandose o no sea su primera vez y muestro la ultima vez que se conecto
-if ($_SESSION['numConexiones'] == 1) {
+if ($_SESSION['numConexionActual'] == 1) {
     $ultimaConexion = "Esta es la primera vez que te conectas";
 } else {
-    $ultimaConexion = "Te conectaste por última vez {$_SESSION['ultimaConexion']}.";
+    $ultimaConexion = "Te conectaste por última vez {$_SESSION['fechaUltimaConexionAnterior']}.";
 }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ejercicio03</title>
+        <title>Programa</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../webroot/css/main.css"/>
@@ -53,10 +53,11 @@ if ($_SESSION['numConexiones'] == 1) {
             <?php            
                 //Muestro los mensajes
                 echo "<p>Bienvenido, {$_SESSION['usuarioDAW207LoginLogOffTema5']}</p><br>";
-                echo "<p>Esta es tu {$_SESSION['numConexiones']} vez que te conectas</p><br>";
-                echo $ultimaConexion;
+                echo "<p>Esta es tu {$_SESSION['numConexionActual']} vez que te conectas</p><br>";
+                echo "$ultimaConexion<br>";
             ?>
-            <form method="post" action="">
+            <img src="../webroot/images/imgLogin.png" class="img-fluid" alt="Mapeo de la Aplicación">
+            <form class="position-absolute top-0 end-0" style="margin-top: 85px; margin-right: 15px" method="post" action="">
                 <input class="btn btn-primary"" type="submit" name="cerrar_sesion" value="Cerrar Sesión">
                 <input class="btn btn-primary" type="submit" name="detalle" value="Detalle">
             </form>

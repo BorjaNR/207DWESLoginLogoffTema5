@@ -73,19 +73,19 @@ if ($entradaOK) {
         
         // Iniciar la sesión
         // Actualizamos la fecha y hora de la última conexión
-        $fechaHoraUltimaConexion = $oUsuarioActivo->T01_FechaHoraUltimaConexion;
+        $fechaHoraUltimaConexionAnterior = $oUsuarioActivo->T01_FechaHoraUltimaConexion;
         
         // Incrementamos el número de conexiones
-        $numConexiones = $oUsuarioActivo->T01_NumConexiones + 1;
+        $numConexionesActual = $oUsuarioActivo->T01_NumConexiones + 1;
         
         // Configuramos sesiones para almacenar la información del usuario
         session_start();
         $_SESSION['usuarioDAW207LoginLogOffTema5'] = $oUsuarioActivo->T01_DescUsuario;
-        $_SESSION['numConexiones'] = $numConexiones;
-        $_SESSION['ultimaConexion'] = $fechaHoraUltimaConexion;
+        $_SESSION['numConexionActual'] = $numConexionesActual;
+        $_SESSION['fechaUltimaConexionAnterior'] = $fechaHoraUltimaConexionAnterior;
 
         // Preparar la consulta SQL para actualizar los datos
-        $consultaPreparada = $miDB->prepare("UPDATE T01_Usuario SET T01_NumConexiones = $numConexiones, T01_FechaHoraUltimaConexion = CURRENT_TIMESTAMP WHERE T01_CodUsuario = '$usuario'");
+        $consultaPreparada = $miDB->prepare("UPDATE T01_Usuario SET T01_NumConexiones = $numConexionesActual, T01_FechaHoraUltimaConexion = CURRENT_TIMESTAMP WHERE T01_CodUsuario = '$usuario'");
         
         // Ejecutamos la consulta
         $consultaPreparada->execute();
@@ -105,7 +105,7 @@ if ($entradaOK) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ejercicio03</title>
+        <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../webroot/css/main.css"/>
@@ -119,14 +119,13 @@ if ($entradaOK) {
                 <div class="mb-3">
                     <label class="form-label">Usuario</label>
                     <input type="text" class="form-control bg-warning" name="usuario" value="<?php echo (isset($_REQUEST['usuario']) ? $_REQUEST['usuario'] : ''); ?>">
-                    <?php echo (!empty($aErrores["usuario"]) ? '<span style="color: red;">' . $aErrores["usuario"] . '</span>' : ''); //Esto es para mostrar el mensaje de error en color rojo  ?>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Contraseña</label>
-                    <input type="text" class="form-control bg-warning" name="pass" value="<?php echo (isset($_REQUEST['pass']) ? $_REQUEST['pass'] : ''); ?>">
-                    <?php echo (!empty($aErrores["pass"]) ? '<span style="color: red;">' . $aErrores["pass"] . '</span>' : ''); //Esto es para mostrar el mensaje de error en color rojo  ?>
+                    <input type="password" class="form-control bg-warning" name="pass" value="<?php echo (isset($_REQUEST['pass']) ? $_REQUEST['pass'] : ''); ?>">
                 </div>
                 <input class="btn btn-primary" name="enviar" type="submit" value="Inciar Sesion">
+                <input class="btn btn-primary" name="volver" type="submit" value="Volver">
             </form>
             <?php
             }
@@ -139,7 +138,7 @@ if ($entradaOK) {
                         <p>&copy;2023-24 IES los Sauces. Todos los derechos reservados. <a href="../../index.html" style="color: white; text-decoration: none">Borja Nuñez Refoyo</a></p>
                     </div>
                     <div class="col text-end">
-                        <a title="Inicio" href="../indexLoginLogoffTema5.html"><img src="../webroot/images/casa.png" width="40" height="40" alt="Inicio"/></a>
+                        <a title="Inicio" href="../indexLoginLogoffTema5.php"><img src="../webroot/images/casa.png" width="40" height="40" alt="Inicio"/></a>
                         <a title="GitHub" href="https://github.com/BorjaNR/207DWESLoginLogoffTema5" target="blank"><img src="../webroot/images/git.png" width="40" height="40" alt="GitHub"/></a>
                     </div>
                 </div>

@@ -19,8 +19,8 @@ if (isset($_REQUEST['login'])) {
             <h1>LoginLogoff Tema 5</h1>
         </header>
         <main style="margin-bottom: 75px" class="fs-5 text-center">
-            <img src="./webroot/images/ProyectoLoginLogoff1.PNG" class="img-fluid" alt="Mapeo de la Aplicación">
-            <form name="fomrulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <img src="./webroot/images/imgLogin.png" class="img-fluid" alt="Mapeo de la Aplicación">
+            <form class="position-absolute top-0 end-0" style="margin-top: 60px; margin-right: 15px" name="fomrulario" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <input class="btn btn-primary" name="login" type="submit" value="Login">
             </form>
         </main>
