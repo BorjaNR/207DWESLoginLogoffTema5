@@ -5,7 +5,7 @@
  * @version 2.0 
  * @since 11/04/2024
  */
-//Iniciamos la sesion anterior
+// Recuperar la sesión
 session_start();
 
 //Si se intenta acceder a la pagina sin iniciar sesion redirige a la pagina de inicio de la aplicación
@@ -28,13 +28,31 @@ if (isset($_REQUEST['detalle'])) {
     exit();
 }
 
-$bienvenida = "Bienvenido, {$_SESSION['usuarioDAW207LoginLogOffTema5']}.<br>";
-$numConexiones = "";
-//Controlo que sea su primera vez conectandose o no sea su primera vez y muestro la ultima vez que se conecto
-if ($_SESSION['numConexionActual'] == 1) {
-    $ultimaConexion = "Esta es la primera vez que te conectas";
-} else {
-    $ultimaConexion = "Te conectaste por última vez {$_SESSION['fechaUltimaConexionAnterior']}.";
+// Define los mensajes según el idioma
+if ($_COOKIE['idioma'] == 'es') {
+    $bienvenida = "Bienvenido, {$_SESSION['usuarioDAW207LoginLogOffTema5']}.<br>";
+    $numConexiones = "Esta es tu {$_SESSION['numConexionActual']} vez conectándote.<br>";
+    if ($_SESSION['numConexionActual'] == 1) {
+        $ultimaConexion = "Esta es la primera vez que te conectas";
+    } else {
+        $ultimaConexion = "Te conectaste por última vez {$_SESSION['fechaUltimaConexionAnterior']}.";
+    }
+} elseif ($_COOKIE['idioma'] == 'en') {
+    $bienvenida = "Welcome, {$_SESSION['usuarioDAW207LoginLogOffTema5']}.<br>";
+    $numConexiones = "This is your {$_SESSION['numConexionActual']} time logging in.<br>";
+    if ($_SESSION['numConexionActual'] == 1) {
+        $ultimaConexion = "This is the first time you connect";
+    } else {
+        $ultimaConexion = "You last logged in on {$_SESSION['fechaUltimaConexionAnterior']}.";
+    }
+}elseif ($_COOKIE['idioma'] == 'pt') {
+    $bienvenida = "Bem-vindo, {$_SESSION['usuarioDAW207LoginLogOffTema5']}.<br>";
+    $numConexiones = "Este é o seu login de  {$_SESSION['numConexionActual']} vezes.<br>";
+    if ($_SESSION['numConexionActual'] == 1) {
+        $ultimaConexion = "Esta é a primeira vez que você se conecta";
+    } else {
+        $ultimaConexion = "Você fez login pela última vez em {$_SESSION['fechaUltimaConexionAnterior']}.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -52,9 +70,7 @@ if ($_SESSION['numConexionActual'] == 1) {
         <main style="margin-bottom: 75px" class="fs-5 text-center">
             <?php            
                 //Muestro los mensajes
-                echo "<p>Bienvenido, {$_SESSION['usuarioDAW207LoginLogOffTema5']}</p><br>";
-                echo "<p>Esta es tu {$_SESSION['numConexionActual']} vez que te conectas</p><br>";
-                echo "$ultimaConexion<br>";
+                echo "<p>$bienvenida, $numConexiones, $ultimaConexion<br>";
             ?>
             <img src="../webroot/images/imgLogin.png" class="img-fluid" alt="Mapeo de la Aplicación">
             <form class="position-absolute top-0 end-0" style="margin-top: 85px; margin-right: 15px" method="post" action="">
