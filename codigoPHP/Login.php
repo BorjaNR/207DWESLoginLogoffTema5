@@ -11,6 +11,12 @@ if (isset($_REQUEST['volver'])) {
     exit();
 }
 
+if (isset($_REQUEST['registrarse'])) {
+    // Redirige al registro
+    header('Location: ./registro.php');
+    exit();
+}
+
 //Incluimos la libreria de validacion de formularios
 require_once '../core/231018libreriaValidacion.php';
 //Configuración de conexión a la base de datos
@@ -126,6 +132,7 @@ if ($entradaOK) {
                 </div>
                 <input class="btn btn-primary" name="enviar" type="submit" value="Inciar Sesion">
                 <input class="btn btn-primary" name="volver" type="submit" value="Volver">
+                <input class="btn btn-primary" name="registrarse" type="submit" value="Registrarse">
             </form>
             <?php
             }

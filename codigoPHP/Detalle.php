@@ -35,11 +35,6 @@ if (isset($_REQUEST['volver'])) {
                 <input class="btn btn-primary" name="volver" type="submit" value="Volver">
             </form>
             <?php
-            /**
-             * @author Borja Nuñez Refoyo
-             * @version 2.0 
-             * @since 09/04/2024
-             */
             //Mostramos la variable $_SESSION
             if (isset($_SESSION)) {
                 echo '<h3>Variable $_SESSION</h3>';
