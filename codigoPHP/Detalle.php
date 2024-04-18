@@ -100,7 +100,7 @@ if (isset($_REQUEST['volver'])) {
             <div class="container">
                 <div class="row">
                     <div class="col text-center text-white">
-                        <p>&copy;2023-24 IES los Sauces. Todos los derechos reservados. <a href="../../index.html" style="color: white; text-decoration: none">Borja Nuñez Refoyo</a></p>
+                        <p>&copy;2023-24 IES los Sauces. Todos los derechos reservados. <a href="../../index.html" style="text-decoration: none; background-color: transparent; color: white">Borja Nuñez Refoyo</a></p>
                     </div>
                     <div class="col text-end">
                         <a title="Inicio" href="./Programa.php"><img src="../webroot/images/casa.png" width="40" height="40" alt="Inicio"/></a>
