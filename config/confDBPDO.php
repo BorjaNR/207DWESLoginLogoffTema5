@@ -6,8 +6,8 @@
 */
 
 // Archivo de configuración de la BD de Entorno de Desarrollo del Instituto
-define('DSN', 'mysql:host=192.168.20.19;dbname=DB207DWESProyectoTema5'); // Host 'IP' y nombre de la base de datos
-define('USERNAME','user207DWESProyectoTema5'); // Nombre de usuario de la base de datos
+define('DSN', 'mysql:host=192.168.20.19;dbname=DB207DWESLoginLogoffTema5'); // Host 'IP' y nombre de la base de datos
+define('USERNAME','user207DWESLoginLogoffTema5'); // Nombre de usuario de la base de datos
 define('PASSWORD','paso'); // Contraseña de la base de datos
 
 // Datos para la configuracion de la base de datos en el servidor IONOS
