@@ -21,15 +21,14 @@ $entradaOK = true; //Variable que nos indica que todo va bien
 $aErrores = [
     'codUsuario' => '',
     'password' => '',
-    'descUsuario'
+    'descUsuario' => ''
 ];
 //Array donde recogeremos la respuestas correctas (si $entradaOK)
 $aRespuestas = [
     'codUsuario' => '',
     'password' => '',
-    'descUsuario'
+    'descUsuario' => ''
 ];
-$_REQUEST['fechaCreacion'] = date('Y-m-d H:i:s'); //Inicializamos la fecha actual ya que es un campo desabilitado
 //Cargar valores por defecto en los campos del formulario
 //Para cada campo del formulario: Validar entrada y actuar en consecuencia
 if (isset($_REQUEST['enviar'])) {
@@ -46,12 +45,13 @@ if (isset($_REQUEST['enviar'])) {
             // Utilizamos una consulta simple para comprobar el codigo del usuario
             $consultaComprobarCodUsuario = $miDB->prepare("SELECT * FROM T01_Usuario WHERE T01_CodUsuario = ?");
             $consultaComprobarCodUsuario->execute([$_REQUEST['codUsuario']]);
+            
             // Y obtenemos el resultado de la consulta como un objeto.
             $oUsuarioExistente = $consultaComprobarCodUsuario->fetchObject();
             // COMPROBACION DE ERRORES
             // Caso de que el usuario exista
             if ($oUsuarioExistente) {
-                $aErrores['T01_CodUsuario'] = "El usuario ya existe";
+                $aErrores['codUsuario'] = "El usuario ya existe";
             }
         } catch (PDOException $pdoe) {
             echo ('<p style="color:red">EXCEPCION PDO</p>' . $pdoe->getMessage());
@@ -77,22 +77,23 @@ if ($entradaOK) {
     $aRespuestas['password'] = $_REQUEST['password'];
     $aRespuestas['descUsuario'] = $_REQUEST['descUsuario'];
     
+    $usuario = $aRespuestas['codUsuario'];
     $hashResumen = hash("sha256", ($aRespuestas['codUsuario'] . $aRespuestas['password']));
+    $descUsuario = $aRespuestas['descUsuario'];
     try {
-        $smnt = "INSERT INTO T01_Usuario (T01_CodUsuario, T01_Password, T01_DescUsuario) VALUES ('"
-                . $aRespuestas['codUsuario'] . "','" . $hashResumen . "','" . $aRespuestas['descUsuario'] . "');";
+        $miDB = new PDO(DSN, USERNAME, PASSWORD);
+        
+        $smnt = "INSERT INTO T01_Usuario (T01_CodUsuario, T01_Password, T01_DescUsuario) VALUES ('$usuario','$hashResumen','$descUsuario');";
         $consultaInsertarUsuario = $miDB->prepare($smnt);
         $consultaInsertarUsuario->execute();
         
         // Configuramos sesiones para almacenar la información del usuario
         session_start();
         $_SESSION['usuarioDAW207LoginLogOffTema5'] = $aRespuestas['codUsuario'];
-        $_SESSION['numConexionActual'] = $numConexionesActual;
-        $_SESSION['fechaUltimaConexionAnterior'] = $fechaHoraUltimaConexionAnterior;
+        $_SESSION['numConexionActual'] = 1;
         
-
         // Preparar la consulta SQL para actualizar los datos
-        $consultaPreparada = $miDB->prepare("UPDATE T01_Usuario SET T01_NumConexiones = $numConexionesActual, T01_FechaHoraUltimaConexion = CURRENT_TIMESTAMP WHERE T01_CodUsuario = ".$aRespuestas['T01_CodUsuario']."");
+        $consultaPreparada = $miDB->prepare('UPDATE T01_Usuario SET T01_NumConexiones =' . 1 . ', T01_FechaHoraUltimaConexion=now() WHERE T01_CodUsuario="' . $aRespuestas['T01_CodUsuario'] . '";');
             
         // Ejecutamos la consulta
         $consultaPreparada->execute();
@@ -141,7 +142,7 @@ if ($entradaOK) {
                     <input class="btn btn-primary" name="enviar" type="submit" value="Registrarse">
                     <input class="btn btn-primary" name="volver" type="submit" value="Volver">
                 </form>
-                <?php
+            <?php
             }
             ?>
         </main>

@@ -6,10 +6,11 @@ Borja Nuñez Refoyo
    - [MySQL8.0.35]
    - [PHP8.1]
    - [XDEBUG3.1.2]
-##Descripcion
+## Descripcion
 Desarrollo de aplicaciones web utilizando código embebido
-##Funcionalidades
-##Entorno de desarrollo
+## Funcionalidades
+Una aplicacion para el control de acceso a datos y autetnticación del usuario
+## Entorno de desarrollo
 [http://daw207.isauces.local]
-##Entorno de explotacion
+## Entorno de explotacion
 [https://daw207.ieslossauces.es/index.html]
