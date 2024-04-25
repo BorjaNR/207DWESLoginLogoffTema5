@@ -2,6 +2,6 @@ DirectoryIndex indexLoginLogoffTema5.php
 ErrorDocument 404 /207DWESLoginLogoffTema5/errors/404.html
 ErrorDocument 403 /207DWESLoginLogoffTema5/errors/403.html
 Redirect 301 /google https://www.google.es
-RewriteEngine On
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://daw207.isauces.local/$1 [R,L]
+#RewriteEngine On
+#RewriteCond %{SERVER_PORT} 80
+#RewriteRule ^(.*)$ https://daw207.isauces.local/$1 [R,L]
